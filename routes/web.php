@@ -15,18 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ola', function () {
-    $series = [
-        'Hannibal',
-        'Big Mouth',
-        'Breaking Bad'
-    ];
-    
-    $html = "<ul>";
-    foreach ($series as $serie){
-        $html .= "<li>$serie</li>";
-    }
-    $html .= "</ul>";
-
-    return $html;
-});
+Route::get('/series', 'SeriesController@index');
