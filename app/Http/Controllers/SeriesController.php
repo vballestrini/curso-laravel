@@ -14,14 +14,15 @@ class SeriesController extends Controller
         //Retorna os parâmetros da url
         //var_dump($request->query());
         
-        $series = Serie::all();
+        $series = Serie::query()->orderBy('nome')->get();
+        $mensagem = $request->session()->get('mensagem');
         
         //return view('series.index', [
         //    'series' => $series
         //]);
         //OU
         //caso o parâmetro tenha o mesmo nome da variável
-        return view('series.index', compact('series'));
+        return view('series.index', compact('series', 'mensagem'));
     }
 
     public function create(){
@@ -33,9 +34,17 @@ class SeriesController extends Controller
         //    'nome' => $request->nome
         //]);
         $serie = Serie::create($request->all());
+        $request->session()->flash('mensagem', "Série {$serie->nome} criada com sucesso.");
         
-        echo "Série com id {$serie->id} criada.";
+        return redirect('series.index');
 
+    }
+
+    public function destroy(Request $request){
+        Serie::destroy($request->id);
+        $request->session()->flash('mensagem', "Série removida com sucesso.");
+        
+        return redirect('series.index');
     }
 
 }
