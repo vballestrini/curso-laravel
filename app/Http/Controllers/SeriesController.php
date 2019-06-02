@@ -31,15 +31,18 @@ class SeriesController extends Controller
     }
 
     public function store(SeriesFormRequest $request){
-        //$serie = Serie::create([
-        //    'nome' => $request->nome
-        //]);
 
-        
-        $serie = Serie::create($request->all());
+        $serie = Serie::create(['nome' => $request->nome]);
+        for ($i=1; $i <= $request->qtd_temporadas; $i++) { 
+            $temporada = $serie->temporadas()->create(['numero' => $i]);
+            for ($j=1; $j <= $request->ep_temporada; $j++) { 
+                $temporada->episodios()->create(['numero' => $j]);
+            }
+        }
+
         $request->session()->flash('mensagem', "Série {$serie->nome} criada com sucesso.");
         
-        return redirect('series.index');
+        return redirect()->route('series.index');
 
     }
 
@@ -47,7 +50,7 @@ class SeriesController extends Controller
         Serie::destroy($request->id);
         $request->session()->flash('mensagem', "Série removida com sucesso.");
         
-        return redirect('series.index');
+        return redirect()->route('series.index');
     }
 
 }

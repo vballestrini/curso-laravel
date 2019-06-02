@@ -23,14 +23,24 @@ Séries
     @foreach ($series as $serie)
     <li class="list-group-item d-flex justify-content-between align-items-center">
         {{$serie->nome}}
-        <form action="/series/remover/{{$serie->id}}" method="post" onsubmit="return confirm('Tem certeza que deseja remover {{ addslashes($serie->nome) }}?')">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger btn-sm">Excluir</button>
-        </form>
+
+        <span class="d-flex">
+           
+            <a href="/series/{{ $serie->id }}/temporadas" class="btn btn-info btn-sm mr-1">
+                Visualizar
+            </a>
+        
+            <form action="/series/remover/{{$serie->id}}" method="post" onsubmit="return confirm('Tem certeza que deseja remover {{ addslashes($serie->nome) }}?')">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger btn-sm">Excluir</button>
+            </form>
+
+        </span>
     </li>
     @endforeach
 </ul>
+
 @endsection
         
    
