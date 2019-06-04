@@ -19,5 +19,7 @@
        
     </div>
 
+    @yield('rodape')
+    
 </body>
 </html>

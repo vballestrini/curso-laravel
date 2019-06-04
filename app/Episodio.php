@@ -14,4 +14,6 @@ class Episodio extends Model
     {
         return $this->belongsTo(Temporada::class);
     }
+
+    
 }
