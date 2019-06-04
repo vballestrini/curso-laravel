@@ -7,10 +7,22 @@ use App\Http\Requests\SeriesFormRequest;
 use Illuminate\Http\Request;
 use App\Services\CriadorDeSerie;
 use App\Services\RemovedorDeSerie;
+use Illuminate\Support\Facades\Auth;
 
 class SeriesController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request) {
+
+        /* if(!Auth::check()){
+            echo "Não autenticado";
+            exit();
+        } */
+
         //Retorna a url
         //echo $request->url();
         
