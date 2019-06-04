@@ -8,18 +8,26 @@
     <title>@yield('titulo')</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2 d-flex justify-content-between">
+        
+        @auth
+        <a class="navbar navbar-brand navbar-expand-lg" href="{{ route('series.index') }}">Home</a>
+        <a href="/sair" class="text-danger">Sair</a>
+        @endauth
+
+        @guest
+        <a class="navbar navbar-brand navbar-expand-lg" href="/entrar">Home</a>
+        <a href="/entrar">Entrar</a>
+        @endguest
+        
+        
+    </nav>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>@yield('cabecalho')</h1>
+            </div>
     
-    <div class="container">
-    
-        <div class="jumbotron">
-            <h1>@yield('cabecalho')</h1>
+            @yield('conteudo')
         </div>
-
-        @yield('conteudo')
-       
-    </div>
-
-    @yield('rodape')
-    
-</body>
+    </body>
 </html>

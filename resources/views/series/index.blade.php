@@ -16,8 +16,10 @@ Séries
 </div>
 @endif
 
-
+@auth
 <a href="{{ route('form_criar') }}" class="btn btn-dark mb-2">Adicionar</a>
+@endauth
+
         
 <ul class="list-group">
     @foreach ($series as $serie)
@@ -35,21 +37,21 @@ Séries
         </div>
 
         <span class="d-flex">
-           
+            @auth
             <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})">
                 Editar
             </button>
-
+            @endauth
             <a href="/series/{{ $serie->id }}/temporadas" class="btn btn-info btn-sm mr-1">
                 Visualizar
             </a>
-        
+            @auth
             <form action="/series/remover/{{$serie->id}}" method="post" onsubmit="return confirm('Tem certeza que deseja remover {{ addslashes($serie->nome) }}?')">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Excluir</button>
             </form>
-
+            @endauth
         </span>
     </li>
     @endforeach
